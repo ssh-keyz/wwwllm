@@ -28,8 +28,7 @@ const MAX_HTML_TAG_CONTENT_LENGTH = 1000;
 const LOOKAHEAD_RANGE = 100;
 
 // Define the regex pattern
-const chunkRegex = new RegExp(
-  "(" +
+const chunkRegex = new RegExp("(" +
 
     "(" +
     // 1. Headings (Setext-style, Markdown, and HTML-style, with length constraints)
@@ -87,7 +86,7 @@ const chunkRegex = new RegExp(
     // 14. Fallback for any remaining content (with length constraints)
     `(?:(?:[^\\r\\n]{1,${MAX_STANDALONE_LINE_LENGTH}}(?:[.!?…]|\\.{3}|[\\u2026\\u2047-\\u2049]|[\\p{Emoji_Presentation}\\p{Extended_Pictographic}])(?=\\s|$))|(?:[^\\r\\n]{1,${MAX_STANDALONE_LINE_LENGTH}}(?=[\\r\\n]|$))|(?:[^\\r\\n]{1,${MAX_STANDALONE_LINE_LENGTH}}(?=[.!?…]|\\.{3}|[\\u2026\\u2047-\\u2049]|[\\p{Emoji_Presentation}\\p{Extended_Pictographic}])(?:.{1,${LOOKAHEAD_RANGE}}(?:[.!?…]|\\.{3}|[\\u2026\\u2047-\\u2049]|[\\p{Emoji_Presentation}\\p{Extended_Pictographic}])(?=\\s|$))?))` +
     ")",
-    "gmu"  // ... (insert the full regex pattern here, using the constants defined above)
+    "gmu",  // ... (insert the full regex pattern here, using the constants defined above)
   ")",
   "gmu"
 );
@@ -98,7 +97,9 @@ function chunkText(text) {
 
 // Listen for messages from the popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "chunkText") {
+  if (request.action === "isReady") {
+    sendResponse({ready: true});
+  } else if (request.action === "chunkText") {
     const pageText = document.body.innerText;
     const chunks = chunkText(pageText);
     const chunksText = chunks.map((chunk, index) => `Chunk ${index + 1}:\n${chunk}\n\n`).join('');

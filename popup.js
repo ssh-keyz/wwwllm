@@ -4,16 +4,18 @@ document.getElementById('chunkButton').addEventListener('click', () => {
   statusDiv.textContent = 'Processing...';
   
   chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, {action: "chunkText"}, (response) => {
+    chrome.tabs.sendMessage(tabs[0].id, {action: "isReady"}, (response) => {
       if (chrome.runtime.lastError) {
-        statusDiv.textContent = 'Error: ' + chrome.runtime.lastError.message;
+        console.log(chrome.runtime.lastError.message);
+        statusDiv.textContent = 'Error: Content script not ready. Please refresh the page.';
         return;
       }
-      if (response && response.chunksText) {
-        // ... (download code) ...
-        statusDiv.textContent = 'File downloaded!';
+      if (response && response.ready) {
+        chrome.tabs.sendMessage(tabs[0].id, {action: "chunkText"}, (response) => {
+          // Your existing code for handling the response
+        });
       } else {
-        statusDiv.textContent = 'Error: Unexpected response';
+        statusDiv.textContent = 'Error: Content script not ready. Please refresh the page.';
       }
     });
   });
