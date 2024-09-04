@@ -2,7 +2,7 @@
 
 ## Description
 
-wwwllm is a Chrome extension that allows users to chunk the text content of any web page into smaller, manageable pieces. It processes the text using a sophisticated regex pattern and provides the chunks as a downloadable text file.
+wwwllm is a Chrome extension that allows users to chunk the text content of any web page into smaller, manageable pieces. It processes the text using a sophisticated regex pattern and provides the chunks as a downloadable text file, perfect for training or instructing LLMs.
 
 ## Features
 
