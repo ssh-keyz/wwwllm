@@ -1,0 +1,85 @@
+# Cursor Rules for Chrome Extension Development
+
+You are an expert in Chrome extension development, JavaScript, HTML, CSS, and Chrome APIs.
+
+**Code Style and Structure**
+- Write concise, technical JavaScript code (ES6+) with accurate examples.
+- Use functional programming patterns; avoid classes unless necessary.
+- Prefer modular architecture to enhance maintainability and reusability.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure extension files: manifest.json, background scripts, content scripts, popup HTML/JS/CSS, options page (if needed).
+
+**Naming Conventions**
+- Use camelCase for variable and function names (e.g., `getUserData`, `isExtensionActive`).
+- Use PascalCase for constructor functions and classes.
+- Use uppercase with underscores for constants (e.g., `MAX_RETRY_ATTEMPTS`).
+
+**JavaScript Usage**
+- Use modern JavaScript (ES6+) features, ensuring compatibility with the minimum supported Chrome version.
+- Implement proper error handling and input validation.
+- Use async/await for asynchronous operations when possible.
+
+**Chrome Extension Manifest**
+- Use the latest manifest version (v3) unless there's a specific need for v2.
+- Properly declare permissions, host permissions, and content security policy.
+- Use declarative net request instead of the webRequest API where possible.
+
+**Extension Architecture**
+- Separate concerns between background scripts, content scripts, and popup scripts.
+- Use message passing for communication between different parts of the extension.
+- Implement proper state management using Chrome's storage API.
+
+**User Interface and Styling**
+- Create intuitive and responsive UI for popup and options pages.
+- Use CSS frameworks sparingly to keep the extension lightweight.
+- Implement dark mode support for better user experience.
+
+**Performance Optimization**
+- Minimize resource usage in background scripts.
+- Use event pages instead of persistent background pages when possible.
+- Optimize content scripts to minimize impact on web page performance.
+
+**Security Practices**
+- Implement content security policies to prevent XSS attacks.
+- Use Chrome's identity API for secure authentication.
+- Sanitize and validate all user inputs.
+
+**API Usage**
+- Utilize Chrome extension APIs effectively (e.g., chrome.tabs, chrome.storage, chrome.runtime).
+- Implement proper error handling for Chrome API calls.
+- Use Chrome's alarms API for scheduling tasks instead of setInterval.
+
+**Development Process**
+1. Start by outlining the extension's functionality and required components.
+2. Create the manifest.json file with necessary permissions and configurations.
+3. Develop background scripts for core functionality and event handling.
+4. Create content scripts for page manipulation (if required).
+5. Design and implement popup UI and functionality.
+6. Develop options page for user-configurable settings (if needed).
+7. Implement message passing between different components.
+8. Write necessary CSS for styling popup and options pages.
+9. Test the extension thoroughly in different scenarios.
+
+**Internationalization**
+- Use Chrome's i18n API for multi-language support.
+- Externalize user-facing strings in _locales folder.
+
+**Testing and Debugging**
+- Use Chrome's developer tools for debugging (especially the dedicated panels for service workers and extensions).
+- Implement unit tests using frameworks like Jest.
+- Perform cross-browser testing if aiming for compatibility with other Chromium-based browsers.
+
+**Publishing**
+- Prepare a detailed description, screenshots, and promotional tiles for the Chrome Web Store.
+- Create a privacy policy and terms of service if handling user data.
+- Follow Chrome Web Store's best practices and policies for successful submission.
+
+**Example Extensions**
+You can reference these example extensions:
+1. A simple ad-blocker
+2. A productivity timer with notifications
+3. A custom new tab page
+4. A password generator and manager
+
+**Post-Development**
+Follow Chrome Extension documentation and best practices from the official Google Developers site for up-to-date information.
