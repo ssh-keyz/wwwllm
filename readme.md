@@ -10,6 +10,14 @@ wwwllm is a Chrome extension that allows users to chunk the text content of any 
 - Uses a complex regex pattern to identify various text structures (headings, lists, code blocks, etc.)
 - Provides results as a downloadable text file
 - Displays the total number of chunks found
+- Handles a wide range of Markdown and HTML elements
+- Supports nested structures like lists and blockquotes
+- Processes mathematical expressions and LaTeX-style content
+- Respects maximum length constraints for different text elements
+- Works with Unicode characters, including emojis
+- Mostly preserves the original formatting and structure of the text
+- Easy-to-use interface 
+- Lightweight and fast processing
 
 ## Installation
 
