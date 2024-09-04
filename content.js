@@ -89,19 +89,22 @@ const chunkRegex = new RegExp(
   "gmu"
 );
 
-function chunkText(text) {
-  return text.match(chunkRegex) || [];
+function chunkText() {
+  const bodyText = document.body.innerText;
+  const chunks = bodyText.split(chunkRegex).filter(chunk => chunk.trim() !== '');
+  
+  const processedChunks = chunks.map(chunk => chunk.trim()).join('\n');
+  
+  return {
+    chunksText: processedChunks,
+    chunkCount: chunks.length
+  };
 }
 
-// Listen for messages from the popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "isReady") {
-    sendResponse({ready: true});
-  } else if (request.action === "chunkText") {
-    const pageText = document.body.innerText;
-    const chunks = chunkText(pageText);
-    const chunksText = chunks.map((chunk, index) => `Chunk ${index + 1}:\n${chunk}\n\n`).join('');
-    sendResponse({chunksText: chunksText, chunkCount: chunks.length});
+  if (request.action === "chunkText") {
+    sendResponse(chunkText());
+  } else if (request.action === "isReady") {
+    sendResponse({ ready: true });
   }
-  return true;  // Indicates that the response will be sent asynchronously
 });
