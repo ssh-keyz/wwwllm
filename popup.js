@@ -13,7 +13,23 @@ document.getElementById('chunkButton').addEventListener('click', () => {
         }
         if (response && response.ready) {
           chrome.tabs.sendMessage(tabs[0].id, {action: "chunkText"}, (response) => {
-            // Your existing code for handling the response
+            if (chrome.runtime.lastError) {
+              console.error(chrome.runtime.lastError.message);
+              statusDiv.textContent = 'Error: Failed to chunk text. Please try again.';
+              return;
+            }
+            if (response && response.chunksText && response.chunkCount) {
+              const blob = new Blob([response.chunksText], {type: 'text/plain'});
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'chunked_text.txt';
+              a.click();
+              URL.revokeObjectURL(url);
+              statusDiv.textContent = `Successfully chunked into ${response.chunkCount} parts. Download started.`;
+            } else {
+              statusDiv.textContent = 'Error: Invalid response from content script.';
+            }
           });
         } else {
           statusDiv.textContent = 'Error: Content script not ready. Please refresh the page.';
